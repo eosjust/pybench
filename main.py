@@ -63,20 +63,24 @@ def execute_process():
     print(f'COST: {time.time() - start}')
 
 
-def exe_process2(loop_cnt, thread_cnt):
+def exe_process2(loop_cnt, thread_cnt, log_detail):
     executor = ProcessPoolExecutor(max_workers=thread_cnt)
     numbers = list(range(1, 100))
     futures = []
-    for num in numbers:
-        task = executor.submit(chk, num)
-        futures.append(task)
+    for lp in list(range(0, loop_cnt)):
+        for num in numbers:
+            task = executor.submit(chk, num)
+            futures.append(task)
     start = time.time()
     # wait(futures)
     # for num, future in zip(numbers, futures):
     #     print(f'fib({num}) = {future.result()}')
-    for future in as_completed(futures):
-        data = future.result()
-        print(f"main: {data}")
+    if log_detail == 1:
+        for future in as_completed(futures):
+            data = future.result()
+            print(f"main: {data}")
+    else:
+        wait(futures)
     print(f'COST: {time.time() - start}')
 
 
@@ -84,12 +88,17 @@ if __name__ == '__main__':
     print('arg lens:', len(sys.argv))
     loop_cnt = 1
     thread_cnt = 4
+    log_detail = 1
     if len(sys.argv) == 2:
         thread_cnt = int(sys.argv[1])
     if len(sys.argv) == 3:
         loop_cnt = int(sys.argv[1])
         thread_cnt = int(sys.argv[2])
-    exe_process2(loop_cnt, thread_cnt)
+    if len(sys.argv) == 4:
+        loop_cnt = int(sys.argv[1])
+        thread_cnt = int(sys.argv[2])
+        log_detail = int(sys.argv[3])
+    exe_process2(loop_cnt, thread_cnt, log_detail)
 
 # extArgs={}
 # slither = Slither(
