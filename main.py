@@ -65,7 +65,7 @@ def execute_process():
 
 def exe_process2(loop_cnt, thread_cnt, log_detail):
     executor = ProcessPoolExecutor(max_workers=thread_cnt)
-    numbers = list(range(1, 30))
+    numbers = list(range(1, 4))
     futures = []
     for lp in list(range(0, loop_cnt)):
         for num in numbers:
