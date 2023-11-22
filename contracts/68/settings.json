@@ -1,0 +1,1 @@
+{"ver":"0.8.15","mainPath":"contracts/v0.1/deployed_mainnet/deprecated/LongShort.sol","optim":"200","remap":["@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/","@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/","ds-test/=lib/ds-test/src/","forge-std/=lib/forge-std/src/","prb-math/=lib/prb-math/contracts/"]}
