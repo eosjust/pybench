@@ -32,6 +32,8 @@ def chk(n):
     if optim is not None:
         extArgs['solc_args'] = '--optimize --optimize-runs ' + optim
     mainPath = settings['mainPath']
+    if mainPath.startswith('/'):
+        mainPath = mainPath[1:len(mainPath)]
     slither = Slither(
         mainPath,
         **extArgs
@@ -61,9 +63,9 @@ def execute_process():
     print(f'COST: {time.time() - start}')
 
 
-def exe_process2(loop_cnt,thread_cnt):
+def exe_process2(loop_cnt, thread_cnt):
     executor = ProcessPoolExecutor(max_workers=thread_cnt)
-    numbers = list(range(1, 30))
+    numbers = list(range(1, 100))
     futures = []
     for num in numbers:
         task = executor.submit(chk, num)
@@ -82,12 +84,12 @@ if __name__ == '__main__':
     print('arg lens:', len(sys.argv))
     loop_cnt = 1
     thread_cnt = 4
-    if len(sys.argv)==2:
+    if len(sys.argv) == 2:
         thread_cnt = int(sys.argv[1])
-    if len(sys.argv)==3:
+    if len(sys.argv) == 3:
         loop_cnt = int(sys.argv[1])
         thread_cnt = int(sys.argv[2])
-    exe_process2(loop_cnt,thread_cnt)
+    exe_process2(loop_cnt, thread_cnt)
 
 # extArgs={}
 # slither = Slither(
